@@ -1,0 +1,10 @@
+8. Implement a Shopping Cart System using embedded MongoDB documents. Perform operations for adding products, changing quantities, removing products, and calculating the cart value.
+
+use CollegeDB
+db.carts.insertOne({
+ userId:1,items:[{product:"Mouse",price:500,qty:1}]
+})
+db.carts.updateOne({userId:1},{$push:{items:{product:"Keyboard",price:1000,qty:1}}})
+db.carts.updateOne({userId:1,"items.product":"Mouse"},{$set:{"items.$.qty":2}})
+db.carts.updateOne({userId:1},{$pull:{items:{product:"Keyboard"}}})
+db.carts.aggregate([{$match:{userId:1}},{$unwind:"$items"},{$group:{_id:"$userId",total:{$sum:{$multiply:["$items.price","$items.qty"]}}}}])

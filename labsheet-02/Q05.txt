@@ -1,0 +1,11 @@
+5. Develop an E-Commerce Order Management System containing customers, products, and orders. Write queries to retrieve a customer's complete purchase history and calculate order totals.
+
+use CollegeDB
+db.customers.insertOne({_id:1,name:"Aman"})
+db.products.insertMany([{_id:101,name:"Mouse",price:500},{_id:102,name:"Keyboard",price:1000}])
+db.orders.insertOne({
+ customerId:1,items:[{productId:101,price:500,qty:2},{productId:102,price:1000,qty:1}],
+ total:2000,date:new Date()
+})
+db.orders.find({customerId:1})
+db.orders.aggregate([{$unwind:"$items"},{$group:{_id:"$customerId",total:{$sum:{$multiply:["$items.price","$items.qty"]}}}}])

@@ -1,0 +1,10 @@
+1. Design a Student Activity Tracking System in MongoDB that stores student details, enrolled courses, attendance, skills, and recent activities. Perform queries to retrieve students based on different activity conditions.
+
+use CollegeDB
+db.students.insertMany([
+ {name:"Aman", courses:["BCA","DBMS"], attendance:85, skills:["Python","SQL"], activities:["login","assignment"]},
+ {name:"Sara", courses:["BCA"], attendance:92, skills:["Java"], activities:["login","quiz"]}
+])
+db.students.find({activities:"login"})
+db.students.find({attendance:{$gte:80}})
+db.students.find({skills:"Python"})

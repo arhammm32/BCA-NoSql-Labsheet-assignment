@@ -1,0 +1,10 @@
+6. Create a Website Analytics System that stores page visits, user ID, device, browser, location, and timestamp. Use aggregation to identify the most visited pages and commonly used devices.
+
+use CollegeDB
+db.visits.insertMany([
+ {page:"/home",userId:1,device:"mobile",browser:"Chrome",location:"Delhi",time:new Date()},
+ {page:"/about",userId:2,device:"desktop",browser:"Edge",location:"Roorkee",time:new Date()},
+ {page:"/home",userId:3,device:"mobile",browser:"Chrome",location:"Delhi",time:new Date()}
+])
+db.visits.aggregate([{$group:{_id:"$page",visits:{$sum:1}}},{$sort:{visits:-1}}])
+db.visits.aggregate([{$group:{_id:"$device",count:{$sum:1}}},{$sort:{count:-1}}])

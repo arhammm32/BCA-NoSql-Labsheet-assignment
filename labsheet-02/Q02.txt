@@ -1,0 +1,14 @@
+2. Develop an Event Logging System that records login, logout, failed-login, file-upload, and password-change events. Use MongoDB queries to identify repeated failed-login attempts and frequently occurring events.
+
+use CollegeDB
+db.events.insertMany([
+ {user:"Aman",event:"failed-login",time:new Date()},
+ {user:"Aman",event:"login",time:new Date()},
+ {user:"Sara",event:"file-upload",time:new Date()}
+])
+db.events.aggregate([
+ {$match:{event:"failed-login"}},
+ {$group:{_id:"$user",attempts:{$sum:1}}},
+ {$match:{attempts:{$gt:1}}}
+])
+db.events.aggregate([{$group:{_id:"$event",count:{$sum:1}}},{$sort:{count:-1}}])

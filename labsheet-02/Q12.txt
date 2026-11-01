@@ -1,0 +1,9 @@
+12. Create a User Notification System for messages, order updates, and system alerts. Write queries to retrieve unread notifications and update them after the user views them.
+
+use CollegeDB
+db.notifications.insertMany([
+ {userId:1,message:"Order shipped",type:"order",read:false},
+ {userId:1,message:"Welcome",type:"system",read:true}
+])
+db.notifications.find({userId:1,read:false})
+db.notifications.updateMany({userId:1,read:false},{$set:{read:true}})

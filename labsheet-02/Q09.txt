@@ -1,0 +1,11 @@
+9. Create a Product Review and Rating System in MongoDB. Store customer reviews and use aggregation to calculate the average rating and number of reviews for each product.
+
+use CollegeDB
+db.reviews.insertMany([
+ {productId:101,customer:"Aman",rating:5,review:"Good"},
+ {productId:101,customer:"Sara",rating:4,review:"Nice"},
+ {productId:102,customer:"Ali",rating:3,review:"Average"}
+])
+db.reviews.aggregate([
+ {$group:{_id:"$productId",averageRating:{$avg:"$rating"},totalReviews:{$sum:1}}}
+])

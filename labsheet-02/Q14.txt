@@ -1,0 +1,10 @@
+14. Create a Real-Time Order Tracking System where an order moves through stages such as Placed, Confirmed, Shipped, and Delivered. Store the complete status history and retrieve the current status of an order.
+
+use CollegeDB
+db.tracking.insertOne({
+ orderId:101,currentStatus:"Placed",
+ history:[{status:"Placed",time:new Date()}]
+})
+db.tracking.updateOne({orderId:101},{$set:{currentStatus:"Confirmed"},$push:{history:{status:"Confirmed",time:new Date()}}})
+db.tracking.updateOne({orderId:101},{$set:{currentStatus:"Shipped"},$push:{history:{status:"Shipped",time:new Date()}}})
+db.tracking.findOne({orderId:101},{currentStatus:1,history:1})

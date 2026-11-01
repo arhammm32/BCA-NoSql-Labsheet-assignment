@@ -1,0 +1,10 @@
+13. Design a Course Learning Platform containing courses, instructors, students, modules, progress, and completion status. Retrieve students according to their course progress.
+
+use CollegeDB
+db.learning.insertMany([
+ {student:"Aman",course:"MongoDB",instructor:"Mr Khan",modules:10,progress:80,completed:false},
+ {student:"Sara",course:"MongoDB",instructor:"Mr Khan",modules:10,progress:100,completed:true}
+])
+db.learning.find({course:"MongoDB",progress:{$gte:50}})
+db.learning.find({completed:true})
+db.learning.find({progress:{$lt:100}})

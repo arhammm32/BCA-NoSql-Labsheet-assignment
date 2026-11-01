@@ -1,0 +1,11 @@
+3. Create a Mini Blogging Platform using MongoDB where each blog contains author, category, tags, comments, and publication information. Retrieve blogs using different combinations of tags and categories.
+
+use CollegeDB
+db.blogs.insertOne({
+ title:"MongoDB Basics",author:"Aman",category:"Tech",
+ tags:["MongoDB","Database"],comments:[{user:"Sara",text:"Good"}],
+ published:true,date:new Date()
+})
+db.blogs.find({tags:"MongoDB"})
+db.blogs.find({category:"Tech",tags:"Database"})
+db.blogs.find({published:true})

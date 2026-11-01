@@ -1,0 +1,8 @@
+10. Design an Inventory Monitoring System containing product stock, minimum stock level, supplier, and restocking date. Write queries to identify products that need immediate restocking.
+
+use CollegeDB
+db.inventory.insertMany([
+ {product:"Mouse",stock:5,minStock:10,supplier:"ABC",restockDate:new Date()},
+ {product:"Keyboard",stock:25,minStock:10,supplier:"XYZ",restockDate:new Date()}
+])
+db.inventory.find({$expr:{$lte:["$stock","$minStock"]}})

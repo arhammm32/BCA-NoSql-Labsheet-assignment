@@ -1,0 +1,11 @@
+4. Design a Flexible Product Catalog where laptops, mobiles, and cameras have different sets of attributes. Store them in a common collection and write queries to search category-specific properties.
+
+use CollegeDB
+db.products.insertMany([
+ {name:"Laptop",category:"laptop",ram:16,brand:"HP"},
+ {name:"Phone",category:"mobile",storage:128,brand:"Samsung"},
+ {name:"Camera",category:"camera",megapixels:24,brand:"Canon"}
+])
+db.products.find({category:"laptop",ram:{$gte:8}})
+db.products.find({category:"mobile",storage:128})
+db.products.find({category:"camera",megapixels:{$gte:20}})

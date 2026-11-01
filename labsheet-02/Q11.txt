@@ -1,0 +1,18 @@
+11. Implement a Bank Wallet Transfer System using MongoDB transactions. Transfer an amount between two users and ensure that both balance updates are completed atomically.
+
+use CollegeDB
+db.wallets.insertMany([{_id:1,balance:5000},{_id:2,balance:2000}])
+
+// Run on a replica set or sharded cluster.
+const session = db.getMongo().startSession();
+const wallet = session.getDatabase("CollegeDB").wallets;
+session.startTransaction();
+try {
+ wallet.updateOne({_id:1,balance:{$gte:500}},{$inc:{balance:-500}});
+ wallet.updateOne({_id:2},{$inc:{balance:500}});
+ session.commitTransaction();
+} catch (e) {
+ session.abortTransaction();
+} finally {
+ session.endSession();
+}

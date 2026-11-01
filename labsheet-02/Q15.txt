@@ -1,0 +1,11 @@
+15. Develop a Flexible News Database in which different news articles may contain different fields such as author, location, category, tags, images, and sources. Write queries to search articles despite variations in document structure.
+
+use CollegeDB
+db.news.insertMany([
+ {title:"City Update",author:"Aman",location:"Roorkee",category:"Local",tags:["city"],image:"a.jpg"},
+ {title:"Tech News",category:"Technology",tags:["AI","Tech"],source:"News Desk"}
+])
+db.news.find({category:"Local"})
+db.news.find({tags:"AI"})
+db.news.find({location:{$exists:true}})
+db.news.find({author:{$exists:true}})
