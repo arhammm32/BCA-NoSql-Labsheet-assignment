@@ -1,0 +1,23 @@
+Q13. Design a Cassandra database for an event logging application. Create an appropriate table, insert multiple events, and write CQL queries to retrieve events for a particular user and time period.
+
+USE CollegeDB;
+
+CREATE TABLE Events (
+  user_id text,
+  event_time timestamp,
+  event_id uuid,
+  event_type text,
+  status text,
+  PRIMARY KEY (user_id, event_time, event_id)
+) WITH CLUSTERING ORDER BY (event_time DESC);
+
+INSERT INTO Events (user_id,event_time,event_id,event_type,status)
+VALUES ('U1','2026-11-01 10:00:00',uuid(),'login','success');
+
+INSERT INTO Events (user_id,event_time,event_id,event_type,status)
+VALUES ('U1','2026-11-01 11:00:00',uuid(),'file-upload','success');
+
+SELECT * FROM Events
+WHERE user_id = 'U1'
+AND event_time >= '2026-11-01 00:00:00'
+AND event_time < '2026-11-02 00:00:00';

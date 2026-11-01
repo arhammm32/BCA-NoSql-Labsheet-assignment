@@ -1,0 +1,13 @@
+Q9. Design an HBase table for a large-scale application and explain how its row-key design can support horizontal scaling. Demonstrate insertion of records using a suitable row-key strategy.
+
+# Prefix/salt the key to distribute writes across regions
+create 'PageEvents', 'info'
+put 'PageEvents', '01_user100_event1', 'info:type', 'click'
+put 'PageEvents', '02_user101_event2', 'info:type', 'login'
+put 'PageEvents', '03_user102_event3', 'info:type', 'purchase'
+put 'PageEvents', '04_user103_event4', 'info:type', 'logout'
+scan 'PageEvents'
+
+# Explanation:
+# A varied prefix spreads row keys across key ranges and can reduce hot-spotting.
+# Pre-splitting regions with matching key ranges may further distribute data.

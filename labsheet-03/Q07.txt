@@ -1,0 +1,9 @@
+Q7. Create an HBase table named WebsiteCounter to maintain page-view counters. Implement increment operations and display the updated counter values for different pages.
+
+create 'WebsiteCounter', 'views'
+incr 'WebsiteCounter', 'home', 'views:count', 1
+incr 'WebsiteCounter', 'home', 'views:count', 1
+incr 'WebsiteCounter', 'about', 'views:count', 1
+get 'WebsiteCounter', 'home'
+get 'WebsiteCounter', 'about'
+scan 'WebsiteCounter'

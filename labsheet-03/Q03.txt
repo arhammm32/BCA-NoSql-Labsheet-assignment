@@ -1,0 +1,14 @@
+Q3. Design an HBase table for an Event Logging System. Store event_id, timestamp, user information, event type, and status using appropriate column families. Insert sample events and retrieve them based on row keys.
+
+create 'EventLog', 'event', 'user'
+put 'EventLog', 'E101', 'event:timestamp', '2026-11-01T10:00:00'
+put 'EventLog', 'E101', 'event:type', 'login'
+put 'EventLog', 'E101', 'event:status', 'success'
+put 'EventLog', 'E101', 'user:user_id', 'U1'
+put 'EventLog', 'E102', 'event:timestamp', '2026-11-01T10:05:00'
+put 'EventLog', 'E102', 'event:type', 'failed-login'
+put 'EventLog', 'E102', 'event:status', 'failed'
+put 'EventLog', 'E102', 'user:user_id', 'U2'
+get 'EventLog', 'E101'
+get 'EventLog', 'E102'
+scan 'EventLog'

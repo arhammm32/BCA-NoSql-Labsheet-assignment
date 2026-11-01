@@ -1,0 +1,14 @@
+Q5. Implement a simple Blogging Platform using HBase. Create suitable column families for blog details, author information, and comments. Insert at least three blog records and retrieve a particular blog using its row key.
+
+create 'Blog', 'details', 'author', 'comments'
+put 'Blog', 'B1', 'details:title', 'HBase Intro'
+put 'Blog', 'B1', 'author:name', 'Aman'
+put 'Blog', 'B1', 'comments:c1', 'Very useful'
+put 'Blog', 'B2', 'details:title', 'NoSQL Guide'
+put 'Blog', 'B2', 'author:name', 'Sara'
+put 'Blog', 'B2', 'comments:c1', 'Nice post'
+put 'Blog', 'B3', 'details:title', 'Database Design'
+put 'Blog', 'B3', 'author:name', 'Ravi'
+put 'Blog', 'B3', 'comments:c1', 'Good'
+get 'Blog', 'B2'
+scan 'Blog'

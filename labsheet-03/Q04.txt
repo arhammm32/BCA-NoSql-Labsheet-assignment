@@ -1,0 +1,15 @@
+Q4. Create an HBase table for a Content Management System (CMS) with column families such as content, author, and metadata. Insert, update, retrieve, and delete content records.
+
+create 'CMS', 'content', 'author', 'metadata'
+put 'CMS', 'C101', 'content:title', 'MongoDB Basics'
+put 'CMS', 'C101', 'content:body', 'Introduction to databases'
+put 'CMS', 'C101', 'author:name', 'Aman'
+put 'CMS', 'C101', 'metadata:status', 'draft'
+
+# Update a value
+put 'CMS', 'C101', 'metadata:status', 'published'
+
+# Retrieve and delete
+get 'CMS', 'C101'
+delete 'CMS', 'C101', 'content:body'
+get 'CMS', 'C101'

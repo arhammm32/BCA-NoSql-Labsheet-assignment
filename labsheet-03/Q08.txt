@@ -1,0 +1,13 @@
+Q8. Implement expiring usage/session data using HBase. Design a table for user sessions and configure a TTL (Time-To-Live) for the required column family. Insert session records and verify their expiration behavior.
+
+# TTL is specified in seconds; 3600 = 1 hour
+create 'UserSessions', {NAME => 'session', TTL => 3600}
+put 'UserSessions', 'U1', 'session:token', 'T001'
+put 'UserSessions', 'U1', 'session:status', 'active'
+put 'UserSessions', 'U2', 'session:token', 'T002'
+put 'UserSessions', 'U2', 'session:status', 'active'
+scan 'UserSessions'
+describe 'UserSessions'
+
+# After the TTL expires and HBase performs cleanup/compaction,
+# expired cell values are no longer returned.

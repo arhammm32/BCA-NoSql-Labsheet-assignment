@@ -1,0 +1,9 @@
+Q2. Using Apache HBase, perform basic CRUD operations on an Employee table. Demonstrate create, put, get, scan, and delete operations.
+
+create 'Employee', 'personal', 'job'
+put 'Employee', '101', 'personal:name', 'Aman'
+put 'Employee', '101', 'job:department', 'IT'
+get 'Employee', '101'
+scan 'Employee'
+delete 'Employee', '101', 'personal:name'
+get 'Employee', '101'

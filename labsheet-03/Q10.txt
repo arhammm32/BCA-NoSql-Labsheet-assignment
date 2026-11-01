@@ -1,0 +1,14 @@
+Q10. Create an HBase table with multiple regions and demonstrate how HBase distributes data across regions. Explain the role of RegionServers in achieving scalability and availability.
+
+# Create a table with split points to create multiple regions
+create 'RegionalData', 'info', SPLITS => ['300', '600']
+put 'RegionalData', '100', 'info:value', 'North'
+put 'RegionalData', '400', 'info:value', 'Central'
+put 'RegionalData', '700', 'info:value', 'South'
+scan 'RegionalData'
+list_regions 'RegionalData'
+
+# Explanation:
+# HBase divides a table into regions based on row-key ranges.
+# RegionServers host and serve regions; regions can split as data grows
+# and can be reassigned for load balancing and recovery.

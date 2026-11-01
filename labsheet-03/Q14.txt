@@ -1,0 +1,26 @@
+Q14. Demonstrate availability and consistency in Cassandra by creating a keyspace with a suitable replication strategy. Perform read/write operations using different consistency levels such as ONE, QUORUM, and ALL, and observe the behavior.
+
+CREATE KEYSPACE ConsistencyDB
+WITH replication = {'class':'SimpleStrategy','replication_factor':3};
+
+USE ConsistencyDB;
+
+CREATE TABLE Accounts (
+  account_id int PRIMARY KEY,
+  balance int
+);
+
+CONSISTENCY ONE;
+INSERT INTO Accounts (account_id,balance) VALUES (1,5000);
+SELECT * FROM Accounts WHERE account_id = 1;
+
+CONSISTENCY QUORUM;
+UPDATE Accounts SET balance = 4500 WHERE account_id = 1;
+SELECT * FROM Accounts WHERE account_id = 1;
+
+CONSISTENCY ALL;
+SELECT * FROM Accounts WHERE account_id = 1;
+
+# ONE needs one replica, QUORUM needs a majority,
+# and ALL requires every replica to respond.
+# RF=3 requires a three-node cluster for meaningful comparison.

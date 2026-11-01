@@ -1,0 +1,41 @@
+Q15. Design and implement a column-oriented NoSQL application using HBase or Cassandra for one of: Event Logging, Content Management, Blogging Platform, Counters, or Expiring Usage. Demonstrate database/table creation, data insertion, querying, updating, deletion, and explain how consistency, availability, transactions, query features, and scaling are handled by the selected database.
+
+# Example: Event Logging using Cassandra
+CREATE KEYSPACE AppDB
+WITH replication = {'class':'SimpleStrategy','replication_factor':1};
+
+USE AppDB;
+
+CREATE TABLE EventLog (
+  user_id text,
+  event_time timestamp,
+  event_id uuid,
+  event_type text,
+  status text,
+  PRIMARY KEY (user_id,event_time,event_id)
+);
+
+INSERT INTO EventLog (user_id,event_time,event_id,event_type,status)
+VALUES ('U1','2026-11-01 10:00:00',uuid(),'login','success');
+
+SELECT * FROM EventLog WHERE user_id = 'U1';
+
+UPDATE EventLog SET status = 'verified'
+WHERE user_id = 'U1'
+AND event_time = '2026-11-01 10:00:00'
+AND event_id = (SELECT event_id FROM EventLog WHERE user_id='U1' LIMIT 1);
+
+DELETE FROM EventLog
+WHERE user_id = 'U1'
+AND event_time = '2026-11-01 10:00:00'
+AND event_id = (SELECT event_id FROM EventLog WHERE user_id='U1' LIMIT 1);
+
+# Explanation:
+# Consistency is controlled using tunable consistency levels.
+# Replication across nodes improves availability and fault tolerance.
+# Lightweight transactions (IF conditions) provide conditional atomic operations.
+# CQL supports queries based on the table's primary-key design.
+# Partitioning and replication distribute data across cluster nodes.
+
+# Note: For a classroom demo, use the same event_id value in the
+# UPDATE and DELETE statements that was generated during INSERT.

@@ -1,0 +1,22 @@
+Q1. Install and configure Apache HBase. Create a table named Student with column families personal and academic. Insert at least five student records and display them using HBase shell commands.
+
+# Start HBase, then open the HBase shell
+start-hbase.sh
+hbase shell
+
+# Create table and insert five students
+create 'Student', 'personal', 'academic'
+put 'Student', '1', 'personal:name', 'Asha'
+put 'Student', '1', 'academic:course', 'BCA'
+put 'Student', '2', 'personal:name', 'Ravi'
+put 'Student', '2', 'academic:course', 'BCA'
+put 'Student', '3', 'personal:name', 'Neha'
+put 'Student', '3', 'academic:course', 'BSc'
+put 'Student', '4', 'personal:name', 'Arjun'
+put 'Student', '4', 'academic:course', 'BCom'
+put 'Student', '5', 'personal:name', 'Sara'
+put 'Student', '5', 'academic:course', 'BCA'
+
+# Display records
+scan 'Student'
+get 'Student', '1'

@@ -1,0 +1,13 @@
+Q6. Demonstrate the column-family data model in HBase by creating a table with multiple column families and different qualifiers. Explain through your implementation how HBase stores columns within column families.
+
+create 'College', 'personal', 'academic'
+put 'College', 'S1', 'personal:name', 'Asha'
+put 'College', 'S1', 'personal:city', 'Roorkee'
+put 'College', 'S1', 'academic:course', 'BCA'
+put 'College', 'S1', 'academic:semester', '5'
+scan 'College'
+
+# Explanation:
+# personal and academic are column families.
+# name, city, course, and semester are column qualifiers.
+# HBase stores each value using row key, column family, qualifier, and timestamp.

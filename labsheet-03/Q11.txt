@@ -1,0 +1,25 @@
+Q11. Install and configure Apache Cassandra. Create a keyspace named CollegeDB with an appropriate replication factor and create a Students table. Insert and retrieve at least five student records.
+
+# Start Cassandra and open cqlsh
+cqlsh
+
+CREATE KEYSPACE CollegeDB
+WITH replication = {'class':'SimpleStrategy','replication_factor':1};
+
+USE CollegeDB;
+
+CREATE TABLE Students (
+  student_id int PRIMARY KEY,
+  name text,
+  course text,
+  semester int,
+  marks int
+);
+
+INSERT INTO Students (student_id,name,course,semester,marks) VALUES (1,'Asha','BCA',1,82);
+INSERT INTO Students (student_id,name,course,semester,marks) VALUES (2,'Ravi','BCA',2,76);
+INSERT INTO Students (student_id,name,course,semester,marks) VALUES (3,'Neha','BSc',1,91);
+INSERT INTO Students (student_id,name,course,semester,marks) VALUES (4,'Arjun','BCom',3,68);
+INSERT INTO Students (student_id,name,course,semester,marks) VALUES (5,'Sara','BCA',3,88);
+
+SELECT * FROM Students;
