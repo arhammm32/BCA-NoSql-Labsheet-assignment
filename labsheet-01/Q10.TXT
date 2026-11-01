@@ -1,0 +1,7 @@
+// Run on a configured sharded cluster through mongos
+sh.enableSharding('CollegeDB')
+use CollegeDB
+db.Students.insertMany(Array.from({length:25},(_,i)=>({studentId:i+1,name:'Student'+(i+1)})))
+sh.shardCollection('CollegeDB.Students',{studentId:'hashed'})
+sh.status()
+db.Students.getShardDistribution()
