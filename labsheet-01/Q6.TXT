@@ -1,0 +1,14 @@
+create 'Students','personal','academic'
+put 'Students','1','personal:name','Asha'; put 'Students','1','academic:course','BCA'; put
+'Students','1','academic:marks','82'
+put 'Students','2','personal:name','Ravi'; put 'Students','2','academic:course','BCA'; put
+'Students','2','academic:marks','76'
+put 'Students','3','personal:name','Neha'; put 'Students','3','academic:course','BSc'; put
+'Students','3','academic:marks','91'
+put 'Students','4','personal:name','Arjun'; put 'Students','4','academic:course','BCom'; put
+'Students','4','academic:marks','68'
+put 'Students','5','personal:name','Sara'; put 'Students','5','academic:course','BCA'; put
+'Students','5','academic:marks','88'
+get 'Students','1'; scan 'Students'
+put 'Students','1','academic:marks','90'
+deleteall 'Students','5
