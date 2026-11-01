@@ -1,0 +1,20 @@
+Q13. Design a shopping/e-commerce graph using Neo4j containing Customer, Product, Category, and Order nodes. Create appropriate relationships and write Cypher queries to find products purchased by a particular customer.
+
+CREATE (c:Customer {id:1,name:'Aman'}),
+       (p1:Product {id:101,name:'Mouse'}),
+       (p2:Product {id:102,name:'Keyboard'}),
+       (cat:Category {name:'Electronics'}),
+       (o:Order {id:501,date:'2026-11-01'});
+
+CREATE (c)-[:PLACED]->(o);
+CREATE (o)-[:CONTAINS]->(p1);
+CREATE (o)-[:CONTAINS]->(p2);
+CREATE (p1)-[:IN_CATEGORY]->(cat);
+CREATE (p2)-[:IN_CATEGORY]->(cat);
+
+# Find products purchased by Aman
+MATCH (:Customer {name:'Aman'})-[:PLACED]->(:Order)-[:CONTAINS]->(p:Product)
+RETURN p.name;
+
+# Display the complete graph
+MATCH (c:Customer)-[r]->(n) RETURN c,r,n;

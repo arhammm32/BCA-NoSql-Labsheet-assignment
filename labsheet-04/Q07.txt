@@ -1,0 +1,18 @@
+Q7. Design a Riak-based application that demonstrates scaling. Create multiple buckets and insert a large number of key-value records. Explain how Riak distributes data across nodes and supports horizontal scaling.
+
+# Create records in multiple buckets
+for i in $(seq 1 100); do
+  curl -s -X PUT "http://localhost:8098/buckets/users/keys/user$i" \
+    -H "Content-Type: application/json" \
+    -d "{\"id\":$i,\"name\":\"User$i\"}"
+  curl -s -X PUT "http://localhost:8098/buckets/orders/keys/order$i" \
+    -H "Content-Type: application/json" \
+    -d "{\"id\":$i,\"status\":\"placed\"}"
+done
+
+# Check cluster
+riak-admin cluster status
+
+# Explanation: Riak uses consistent hashing and a ring to distribute
+# data among nodes. Adding nodes expands the cluster and redistributes
+# partitions, supporting horizontal scaling.

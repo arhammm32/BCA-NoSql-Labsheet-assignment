@@ -1,0 +1,18 @@
+Q6. Demonstrate consistency in Riak KV by configuring suitable read and write quorum values. Perform read/write operations and explain how Riak handles consistency in a distributed environment.
+
+# Set bucket properties: N=3 replicas, R=2 reads, W=2 writes
+curl -i -X PUT http://localhost:8098/buckets/consistency_demo/props \
+  -H "Content-Type: application/json" \
+  -d '{"props":{"n_val":3,"r":2,"w":2,"allow_mult":false}}'
+
+# Write a record
+curl -i -X PUT 'http://localhost:8098/buckets/consistency_demo/keys/K1?w=2' \
+  -H "Content-Type: application/json" -d '{"value":"sample"}'
+
+# Read with R=2
+curl 'http://localhost:8098/buckets/consistency_demo/keys/K1?r=2'
+
+# Explanation: N is the number of replicas. W is the number of
+# replicas that must acknowledge a write; R is the number that
+# must respond to a read. Quorum settings balance consistency
+# and availability. R + W > N can improve read-after-write overlap.

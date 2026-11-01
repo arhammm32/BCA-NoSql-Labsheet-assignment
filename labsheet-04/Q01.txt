@@ -1,0 +1,23 @@
+Q1. Install and configure Riak KV on a Linux system. Create a bucket named students and perform basic key-value operations such as storing, retrieving, updating, and deleting student records.
+
+# After installing Riak KV on Linux:
+sudo systemctl start riak
+riak ping
+riak-admin cluster status
+
+# Riak HTTP API (default port 8098)
+# Store a student record
+curl -i -X PUT http://localhost:8098/buckets/students/keys/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Asha","course":"BCA","marks":82}'
+
+# Retrieve
+curl http://localhost:8098/buckets/students/keys/1
+
+# Update the same key
+curl -i -X PUT http://localhost:8098/buckets/students/keys/1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Asha","course":"BCA","marks":90}'
+
+# Delete
+curl -i -X DELETE http://localhost:8098/buckets/students/keys/1

@@ -1,0 +1,19 @@
+Q4. Implement a shopping cart application using Riak KV. Store a shopping cart for each user containing product IDs, quantities, and prices. Demonstrate adding, updating, retrieving, and removing products from the cart.
+
+# Add cart with two products
+curl -i -X PUT http://localhost:8098/buckets/carts/keys/U1 \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"U1","items":[{"product_id":"P1","quantity":1,"price":500},{"product_id":"P2","quantity":2,"price":100}]}'
+
+# Retrieve cart
+curl http://localhost:8098/buckets/carts/keys/U1
+
+# Update quantity and cart contents by replacing the value
+curl -i -X PUT http://localhost:8098/buckets/carts/keys/U1 \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"U1","items":[{"product_id":"P1","quantity":3,"price":500},{"product_id":"P2","quantity":2,"price":100}]}'
+
+# Remove P2 by storing the updated cart
+curl -i -X PUT http://localhost:8098/buckets/carts/keys/U1 \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"U1","items":[{"product_id":"P1","quantity":3,"price":500}]}'

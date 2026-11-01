@@ -1,0 +1,19 @@
+Q9. Using Riak, implement query-by-data functionality for user records. Store JSON documents containing user information and demonstrate how application-level logic can be used to locate users based on attributes such as city, age, or preferences.
+
+# Store user documents
+curl -i -X PUT http://localhost:8098/buckets/users/keys/U1 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Aman","city":"Roorkee","age":21,"preference":"music"}'
+
+curl -i -X PUT http://localhost:8098/buckets/users/keys/U2 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Sara","city":"Delhi","age":22,"preference":"reading"}'
+
+# Retrieve known keys
+curl http://localhost:8098/buckets/users/keys/U1
+curl http://localhost:8098/buckets/users/keys/U2
+
+# Application-level logic: fetch known user records and filter
+# the returned JSON by city, age, or preference.
+# Riak KV is primarily key-based; arbitrary attribute searches
+# require an appropriate secondary-index/search setup or app-side filtering.

@@ -1,0 +1,7 @@
+Q3. Design a Riak KV application for storing user profiles and preferences. Store details such as name, email, city, language, theme, and notification preferences. Demonstrate PUT and GET operations.
+
+curl -i -X PUT http://localhost:8098/buckets/user_profiles/keys/U101 \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Aman","email":"aman@example.com","city":"Roorkee","language":"English","theme":"dark","notifications":true}'
+
+curl http://localhost:8098/buckets/user_profiles/keys/U101

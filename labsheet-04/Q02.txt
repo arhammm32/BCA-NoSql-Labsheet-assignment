@@ -1,0 +1,7 @@
+Q2. Using Riak KV, create a user_sessions bucket to store user session information. Store session ID, user ID, login time, and session status, and retrieve session information using its key.
+
+curl -i -X PUT http://localhost:8098/buckets/user_sessions/keys/S101 \
+  -H "Content-Type: application/json" \
+  -d '{"session_id":"S101","user_id":"U1","login_time":"2026-11-01 10:00:00","status":"active"}'
+
+curl http://localhost:8098/buckets/user_sessions/keys/S101

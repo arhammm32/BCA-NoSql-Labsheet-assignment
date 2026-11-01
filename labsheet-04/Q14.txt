@@ -1,0 +1,21 @@
+Q14. Demonstrate transactions, consistency, and availability in Neo4j. Perform multiple CREATE, MATCH, SET, and DELETE operations inside a transaction and explain how transaction management maintains consistent graph data.
+
+# Run as one transaction in Neo4j Browser
+:begin
+CREATE (c:Customer {id:10,name:'Sara'});
+MATCH (c:Customer {id:10})
+SET c.city = 'Roorkee';
+CREATE (p:Product {id:20,name:'Book'});
+MATCH (c:Customer {id:10}), (p:Product {id:20})
+CREATE (c)-[:PURCHASED]->(p);
+MATCH (p:Product {id:20})
+SET p.price = 250;
+:commit
+
+# Delete a node and its relationships
+MATCH (c:Customer {id:10})
+DETACH DELETE c;
+
+# Explanation: Neo4j transactions group operations so they commit
+# together or roll back on failure. ACID transactions help maintain
+# consistency. Availability depends on deployment and cluster setup.

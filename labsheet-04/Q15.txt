@@ -1,0 +1,46 @@
+Q15. Develop a small Graph Database application using Neo4j and a programming language such as Python, Java, or JavaScript. Implement CRUD operations and Cypher queries. Demonstrate how graph databases support relationship-based queries, scaling, availability, and suitable use cases such as social networks, recommendation systems, fraud detection, and knowledge graphs.
+
+# Install Python driver:
+# pip install neo4j
+
+from neo4j import GraphDatabase
+
+URI = "bolt://localhost:7687"
+AUTH = ("neo4j", "password123")
+driver = GraphDatabase.driver(URI, auth=AUTH)
+
+def create_student(tx, sid, name):
+    tx.run(
+        "CREATE (s:Student {id:$id, name:$name})",
+        id=sid, name=name
+    )
+
+def get_students(tx):
+    result = tx.run("MATCH (s:Student) RETURN s.id AS id, s.name AS name")
+    return [(r["id"], r["name"]) for r in result]
+
+def update_student(tx, sid, name):
+    tx.run(
+        "MATCH (s:Student {id:$id}) SET s.name=$name",
+        id=sid, name=name
+    )
+
+def delete_student(tx, sid):
+    tx.run(
+        "MATCH (s:Student {id:$id}) DETACH DELETE s",
+        id=sid
+    )
+
+with driver.session() as session:
+    session.execute_write(create_student, 1, "Asha")
+    print(session.execute_read(get_students))
+    session.execute_write(update_student, 1, "Asha Khan")
+    print(session.execute_read(get_students))
+    session.execute_write(delete_student, 1)
+
+driver.close()
+
+# Graph databases efficiently query connected data through
+# relationships. Scaling and availability depend on the Neo4j
+# deployment/cluster edition and configuration. Use cases include
+# social networks, recommendations, fraud detection, and knowledge graphs.

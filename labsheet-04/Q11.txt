@@ -1,0 +1,17 @@
+Q11. Install and configure Neo4j. Create a graph containing Student, Course, and Department nodes with appropriate relationships. Insert sample data and visualize the resulting graph.
+
+# Start Neo4j with Docker
+docker run --name neo4j-lab -p 7474:7474 -p 7687:7687 \
+  -e NEO4J_AUTH=neo4j/password123 neo4j:5
+
+# Open http://localhost:7474 and sign in.
+# Run in Neo4j Browser:
+CREATE (s1:Student {id:1,name:'Asha'}),
+       (s2:Student {id:2,name:'Ravi'}),
+       (c:Course {name:'BCA'}),
+       (d:Department {name:'Computer Applications'}),
+       (s1)-[:ENROLLED_IN]->(c),
+       (s2)-[:ENROLLED_IN]->(c),
+       (c)-[:BELONGS_TO]->(d);
+
+MATCH (s:Student)-[r]->(n) RETURN s,r,n;

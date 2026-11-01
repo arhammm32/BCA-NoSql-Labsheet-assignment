@@ -1,0 +1,21 @@
+Q12. Using Neo4j Cypher, create a social-network graph containing Person nodes and relationships such as FRIENDS_WITH, FOLLOWS, and WORKS_AT. Write queries to find a person's friends and followers.
+
+CREATE (a:Person {name:'Aman'}),
+       (b:Person {name:'Sara'}),
+       (c:Person {name:'Ravi'}),
+       (co:Company {name:'ABC Ltd'});
+
+CREATE (a)-[:FRIENDS_WITH]->(b);
+CREATE (c)-[:FOLLOWS]->(a);
+CREATE (a)-[:WORKS_AT]->(co);
+
+# Find Aman's friends
+MATCH (:Person {name:'Aman'})-[:FRIENDS_WITH]->(friend)
+RETURN friend;
+
+# Find Aman's followers
+MATCH (follower:Person)-[:FOLLOWS]->(:Person {name:'Aman'})
+RETURN follower;
+
+# View graph
+MATCH (p:Person)-[r]->(n) RETURN p,r,n;

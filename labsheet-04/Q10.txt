@@ -1,0 +1,24 @@
+Q10. Implement set operations in a Riak-based application. Create sets containing user interests or product categories and demonstrate operations such as adding elements, removing elements, checking membership, and finding common elements.
+
+# Riak Data Types API uses a set data type.
+# Create/update a set (requires Riak KV Data Types support)
+curl -i -X POST http://localhost:8098/types/sets/buckets/interests/datatypes/U1 \
+  -H "Content-Type: application/json" \
+  -H "X-Riak-CRDT-Op: 1" \
+  -d '{"add":["music","sports","coding"]}'
+
+# Read the set
+curl http://localhost:8098/types/sets/buckets/interests/datatypes/U1
+
+# Add an element
+curl -i -X POST http://localhost:8098/types/sets/buckets/interests/datatypes/U1 \
+  -H "Content-Type: application/json" -H "X-Riak-CRDT-Op: 1" \
+  -d '{"add":["reading"]}'
+
+# Remove an element
+curl -i -X POST http://localhost:8098/types/sets/buckets/interests/datatypes/U1 \
+  -H "Content-Type: application/json" -H "X-Riak-CRDT-Op: 1" \
+  -d '{"remove":["sports"]}'
+
+# Check membership and common elements by reading the set
+# and comparing its values in application code.

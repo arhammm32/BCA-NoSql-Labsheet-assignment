@@ -1,0 +1,22 @@
+Q5. Demonstrate the structure of data in a key-value store using Riak. Store different types of values such as strings, JSON documents, and lists. Retrieve the stored values and explain the role of bucket, key, and value.
+
+# Store a string
+curl -i -X PUT http://localhost:8098/buckets/demo/keys/message \
+  -H "Content-Type: text/plain" -d 'Hello Riak'
+
+# Store a JSON document
+curl -i -X PUT http://localhost:8098/buckets/demo/keys/student \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Sara","course":"BCA"}'
+
+# Store a JSON list
+curl -i -X PUT http://localhost:8098/buckets/demo/keys/numbers \
+  -H "Content-Type: application/json" -d '[10,20,30,40]'
+
+# Retrieve values
+curl http://localhost:8098/buckets/demo/keys/message
+curl http://localhost:8098/buckets/demo/keys/student
+curl http://localhost:8098/buckets/demo/keys/numbers
+
+# Bucket = collection/namespace, key = unique record identifier,
+# value = data stored for that key.

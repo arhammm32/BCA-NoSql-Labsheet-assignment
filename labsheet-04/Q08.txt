@@ -1,0 +1,22 @@
+Q8. Implement a multi-operation transaction-like scenario using Riak KV for a shopping application. Perform multiple related operations such as adding an item to a cart, updating its quantity, and updating the cart total. Discuss the limitations of transactions in a key-value database.
+
+# Step 1: Create cart
+curl -i -X PUT http://localhost:8098/buckets/carts/keys/U2 \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"product":"Book","qty":1,"price":200}],"total":200}'
+
+# Step 2: Add another item and update total
+curl -i -X PUT http://localhost:8098/buckets/carts/keys/U2 \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"product":"Book","qty":1,"price":200},{"product":"Pen","qty":2,"price":10}],"total":220}'
+
+# Step 3: Update quantity and total
+curl -i -X PUT http://localhost:8098/buckets/carts/keys/U2 \
+  -H "Content-Type: application/json" \
+  -d '{"items":[{"product":"Book","qty":2,"price":200},{"product":"Pen","qty":2,"price":10}],"total":420}'
+
+curl http://localhost:8098/buckets/carts/keys/U2
+
+# Limitation: These are separate key-value writes, not one atomic
+# multi-record transaction. Application logic must handle failures,
+# retries, and concurrent updates.
