@@ -1,0 +1,3 @@
+MongoDB: db.Students.insertOne({Student_ID:1,Name:'Asha',Course:'BCA',Marks:82})
+Cassandra: INSERT INTO Students(Student_ID,Name,Course,Semester,Marks) VALUES(1,'Asha','BCA',1,82);
+Neo4j: CREATE (:Student{id:1,name:'Asha',course:'BCA',marks:82})
