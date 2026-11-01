@@ -1,0 +1,11 @@
+CREATE KEYSPACE CollegeDB WITH replication={'class':'SimpleStrategy','replication_factor':1};
+USE CollegeDB;
+CREATE TABLE Students(Student_ID int PRIMARY KEY,Name text,Course text,Semester int,Marks double);
+INSERT INTO Students(Student_ID,Name,Course,Semester,Marks) VALUES(1,'Asha','BCA',1,82);
+INSERT INTO Students(Student_ID,Name,Course,Semester,Marks) VALUES(2,'Ravi','BCA',2,76);
+INSERT INTO Students(Student_ID,Name,Course,Semester,Marks) VALUES(3,'Neha','BSc',1,91);
+INSERT INTO Students(Student_ID,Name,Course,Semester,Marks) VALUES(4,'Arjun','BCom',3,68);
+INSERT INTO Students(Student_ID,Name,Course,Semester,Marks) VALUES(5,'Sara','BCA',3,88);
+SELECT * FROM Students;
+UPDATE Students SET Marks=85 WHERE Student_ID=1;
+DELETE FROM Students WHERE Student_ID=5;
