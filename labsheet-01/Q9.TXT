@@ -1,0 +1,10 @@
+# After installing MongoDB Community Server per OS instructions:
+sudo systemctl start mongod
+sudo systemctl status mongod
+mongosh
+use LocalLab
+db.createCollection('Students')
+db.Students.insertOne({id:1,name:'Asha',course:'BCA'})
+db.Students.find()
+db.Students.updateOne({id:1},{$set:{marks:82}})
+db.Students.deleteOne({id:1})
