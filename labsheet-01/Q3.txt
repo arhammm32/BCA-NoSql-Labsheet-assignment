@@ -1,0 +1,12 @@
+use CollegeDB
+db.Orders.insertMany([
+{orderId:101,customer:{id:1,name:'Asha'},products:[{name:'Pen',qty:2,price:10},{name:'Book',qty:1,price:80}]},
+{orderId:102,customer:{id:2,name:'Ravi'},products:[{name:'Bag',qty:1,price:500}]},
+{orderId:103,customer:{id:1,name:'Asha'},products:[{name:'Pencil',qty:5,price:5}]},
+{orderId:104,customer:{id:3,name:'Neha'},products:[{name:'Bottle',qty:2,price:120}]},
+{orderId:105,customer:{id:4,name:'Sara'},products:[{name:'Mouse',qty:1,price:650}]}])
+db.Orders.find({'customer.name':'Asha'})
+db.Orders.updateOne({orderId:101,'products.name':'Pen'},{$set:{'products.$.qty':3}})
+db.Orders.aggregate([{$unwind:'$products'},{$group:{_id:'$orderId',total:{$sum:{$multiply:['$products.qty','$products.price']}}}}])
+db.Orders.aggregate([{$unwind:'$products'},{$group:{_id:'$orderId',total:{$sum:{$multiply:['$products.qty','$products.price']}}}},{$match:{total:{$gt:100}}}])
+
