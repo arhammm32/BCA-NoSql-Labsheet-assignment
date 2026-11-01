@@ -1,0 +1,4 @@
+# Start two mongod processes using same replica-set name, separate ports and dbPaths:
+mongod --replSet rs0 --port 27017 --dbpath /data/db1
+mongod --replSet rs0 --port 27018 --dbpath /data/db2
+mongosh --port 27017
