@@ -1,0 +1,7 @@
+use CollegeDB
+db.Students.insertMany([{Student_ID:1,Name:'Asha',Course:'BCA',Semester:1,Marks:82},{Student_ID:2,Name:'Ravi',Course:'BCA',Semester:2,Marks:76},{Student_ID:3,Name:'Neha',Course:'BSc',Semester:1,Marks:91},{Student_ID:4,Name:'Arjun',Course:'BCom',Semester:3,Marks:68},{Student_ID:5,Name:'Sara',Course:'BCA',Semester:3,Marks:88}])
+db.Students.find()
+db.Students.find({Course:'BCA'})
+db.Students.updateOne({Student_ID:2},{$set:{Marks:80}})
+db.Students.deleteOne({Student_ID:4})
+db.Students.countDocuments()
