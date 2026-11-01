@@ -1,0 +1,14 @@
+CREATE
+(s1:Student{id:1,name:'Asha'}),(s2:Student{id:2,name:'Ravi'}),(s3:Student{id:3,name:'Neha'}),(s4:Student{id:4,name:'Arjun'}
+),(s5:Student{id:5,name:'Sara'});
+CREATE (c1:Course{name:'BCA'}),(c2:Course{name:'BSc'}),(c3:Course{name:'BCom'});
+MATCH (s:Student{id:1}),(c:Course{name:'BCA'}) CREATE (s)-[:ENROLLED_IN]->(c);
+MATCH (s:Student{id:2}),(c:Course{name:'BCA'}) CREATE (s)-[:ENROLLED_IN]->(c);
+MATCH (s:Student{id:3}),(c:Course{name:'BSc'}) CREATE (s)-[:ENROLLED_IN]->(c);
+MATCH (s:Student{id:4}),(c:Course{name:'BCom'}) CREATE (s)-[:ENROLLED_IN]->(c);
+MATCH (s:Student{id:5}),(c:Course{name:'BCA'}) CREATE (s)-[:ENROLLED_IN]->(c);
+MATCH (s:Student) RETURN s;
+MATCH (s:Student)-[:ENROLLED_IN]->(c:Course{name:'BCA'}) RETURN s;
+MATCH (s:Student{id:1})-[:ENROLLED_IN]->(c) RETURN c;
+MATCH (s:Student{id:1}),(c:Course{name:'BSc'}) CREATE (s)-[:ENROLLED_IN]->(c);
+MATCH (s:Student{id:1})-[r:ENROLLED_IN]->(c:Course{name:'BSc'}) DELETE r;
