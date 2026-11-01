@@ -1,0 +1,7 @@
+use CollegeDB
+db.StudentStats.insertMany([{Student_ID:1,Course:'BCA',Marks:82},{Student_ID:2,Course:'BCA',Marks:76},{Student_ID:3,Course:
+'BSc',Marks:91},{Student_ID:4,Course:'BCom',Marks:68},{Student_ID:5,Course:'BCA',Marks:88}])
+var mapFn=function(){emit(this.Course,{count:1,total:this.Marks});};
+var reduceFn=function(k,vals){var x={count:0,total:0};vals.forEach(v=>{x.count+=v.count;x.total+=v.total;});return x;};
+db.StudentStats.mapReduce(mapFn,reduceFn,{out:'CourseSummary'})
+db.CourseSummary.find().forEach(x=>print(x._id,x.value.count,x.value.total/x.value.count))
