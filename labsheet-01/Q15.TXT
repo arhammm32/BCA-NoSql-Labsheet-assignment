@@ -1,0 +1,5 @@
+Single server: Client -> DB Server
+Sharding: Client -> Router -> Shard A | Shard B | Shard C
+Primary-secondary: Client -> Primary -> Secondary replicas
+Peer-to-peer: Client -> Node A <-> Node B <-> Node C
+Sharding+replication: Router -> Shard A(replica set) | Shard B(replica set)
