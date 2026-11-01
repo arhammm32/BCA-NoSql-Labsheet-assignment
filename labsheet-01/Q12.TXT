@@ -1,0 +1,5 @@
+CREATE KEYSPACE CollegeDB WITH replication={'class':'NetworkTopologyStrategy','datacenter1':3};
+CREATE TABLE CollegeDB.demo(id int PRIMARY KEY,value text);
+INSERT INTO CollegeDB.demo(id,value) VALUES(1,'replicated value');
+SELECT * FROM CollegeDB.demo;
+-- On each node inspect membership with: nodetool status
