@@ -1,0 +1,7 @@
+# Architecture:
+# mongos -> Shard A replica set (primary + secondary)
+# -> Shard B replica set (primary + secondary)
+sh.enableSharding('CollegeDB')
+sh.shardCollection('CollegeDB.Students',{studentId:'hashed'})
+sh.status()
+db.Students.getShardDistribution()
