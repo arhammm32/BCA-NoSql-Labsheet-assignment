@@ -1,0 +1,9 @@
+SET student:1 Asha
+SET student:2 Ravi
+SET student:3 Neha
+SET student:4 Arjun
+SET student:5 Sara
+GET student:3
+SET student:3 Neha_Sharma
+DEL student:4
+SCAN 0 MATCH student:*
